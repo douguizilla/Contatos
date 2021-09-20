@@ -11,7 +11,7 @@ import com.odougle.contatos.R
 import com.odougle.contatos.databinding.ItemContactBinding
 import com.squareup.picasso.Picasso
 
-class ContactAdapter(context: Context, c: Cursor) : CursorAdapter(context, c, 0) {
+class ContactAdapter(context: Context, c: Cursor?) : CursorAdapter(context, c, 0) {
 
     lateinit var indexes: IntArray
 
