@@ -2,7 +2,9 @@ package com.odougle.contatos.util
 
 import android.content.ContentProviderOperation
 import android.content.Context
+import android.content.OperationApplicationException
 import android.graphics.Bitmap
+import android.os.RemoteException
 import android.provider.ContactsContract
 import java.io.ByteArrayOutputStream
 
@@ -73,9 +75,15 @@ object ContactUtils {
                 .build()
         )
 
-
-
-
+        try {
+            context.contentResolver.applyBatch(
+                ContactsContract.AUTHORITY, operation
+            )
+        }catch (e: RemoteException){
+            e.printStackTrace()
+        }catch (e: OperationApplicationException){
+            e.printStackTrace()
+        }
 
     }
 }
