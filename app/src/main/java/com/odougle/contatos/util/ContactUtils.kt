@@ -40,10 +40,25 @@ object ContactUtils {
                 ContactsContract.Data.CONTENT_URI)
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, backRefIndex)
                 .withValue(ContactsContract.Data.MIMETYPE,
-                    ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                    ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
                 .withValue( ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, address)
                 .build()
         )
+
+        //adiciona um phoneNumber ao contato a partir do tipo "Home"
+        operation.add(
+            ContentProviderOperation.newInsert(
+                ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, backRefIndex)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue( ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber)
+                .withValue( ContactsContract.CommonDataKinds.Phone.TYPE,
+                    ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                .build()
+        )
+
+
 
 
 
