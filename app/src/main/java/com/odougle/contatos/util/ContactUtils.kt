@@ -4,6 +4,7 @@ import android.content.ContentProviderOperation
 import android.content.Context
 import android.graphics.Bitmap
 import android.provider.ContactsContract
+import java.io.ByteArrayOutputStream
 
 object ContactUtils {
     fun insetContact(context: Context, name: String, phoneNumber: String,
@@ -55,6 +56,20 @@ object ContactUtils {
                 .withValue( ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber)
                 .withValue( ContactsContract.CommonDataKinds.Phone.TYPE,
                     ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                .build()
+        )
+
+        //adiciona imagem ao contato
+        val stream = ByteArrayOutputStream()
+        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream)
+        operation.add(
+            ContentProviderOperation.newInsert(
+                ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, backRefIndex)
+                .withValue(ContactsContract.Data.IS_SUPER_PRIMARY,1)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                    ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
+                .withValue( ContactsContract.CommonDataKinds.Photo.PHOTO, stream.toByteArray())
                 .build()
         )
 
