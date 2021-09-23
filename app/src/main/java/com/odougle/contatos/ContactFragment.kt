@@ -1,16 +1,17 @@
 package com.odougle.contatos
 
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.odougle.contatos.databinding.FragmentContactBinding
 import com.odougle.contatos.util.ContactUtils
+import java.io.FileNotFoundException
 
 class ContactFragment : DialogFragment(), DialogInterface.OnClickListener {
 
@@ -47,6 +48,24 @@ class ContactFragment : DialogFragment(), DialogInterface.OnClickListener {
                     edtAddress.text.toString(),
                     photo
                 )
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK && data != null && data.data != null){
+            try {
+                val options = BitmapFactory.Options()
+                options.inSampleSize = 4
+                selectedPhoto = BitmapFactory.decodeStream(
+                    requireContext().contentResolver.openInputStream(data.data!!),
+                    null,
+                    options
+                )
+                binding.imgPhoto.setImageBitmap(selectedPhoto)
+            }catch (e: FileNotFoundException){
+                e.printStackTrace()
             }
         }
     }
