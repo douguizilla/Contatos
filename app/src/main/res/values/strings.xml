@@ -3,4 +3,9 @@
     <string name="error_permission">Você precisa aceitar as permissões.</string>
     <string name="hint_name">Name</string>
     <string name="hint_phone">PhoneNumber</string>
+    <string name="dialog_title">Adicionar contato</string>
+    <string name="action_new_contact">Novo contato</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_cancel">Cancelar</string>
+
 </resources>
