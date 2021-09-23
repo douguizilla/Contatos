@@ -3,6 +3,7 @@ package com.odougle.contatos
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.EditText
@@ -28,7 +29,9 @@ class ContactFragment : DialogFragment(), DialogInterface.OnClickListener {
     }
 
     private fun selectPhotoFromGallery() {
-        TODO("Not yet implemented")
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 0)
     }
 
     override fun onClick(dialog: DialogInterface?, which: Int) {
