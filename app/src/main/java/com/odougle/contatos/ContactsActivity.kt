@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.odougle.contatos.databinding.ActivityContactsBinding
@@ -46,6 +47,14 @@ class ContactsActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item?.itemId == R.id.action_neww_contact){
+            val fragment = ContactFragment()
+            fragment.show(supportFragmentManager, "new_contact")
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun init(){
